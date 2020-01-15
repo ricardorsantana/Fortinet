@@ -1,0 +1,97 @@
+Debug VPN
+
+- Habilitando o debug
+
+diagnose vpn ike log-filter dst-addr4 199.76.44.226
+diag debug application ike -1
+diagnose debug enable
+
+- Desabilitando o debug
+
+diagnose debug disable
+
+- Informações dos tuneis VPNs
+
+get vpn ipsec tunnel details
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+- Ver processamento do Fortigate - Daemons
+
+diagnose sys top-summary
+
+diagnose sys top
+
+- Parar Daemons
+
+diagnose sys kill 11 NUMERO-PID
+
+OBSERVAÇÂO: "11" - é preferido porque este sinal envia saída para o registro de trânsito que pode ser usado pelo Fortinet Support para solucionar problemas.
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+ - Limpar túneis VPN IPsec pré-existentes
+Se você precisar limpar um gateway IKE, use os seguintes comandos:
+
+diagnose vpn ike restart
+diagnose vpn ike gateway clear
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+- Debug – DHCP
+- Debug DHCP IPSec DHCP relay
+
+diag debug en
+diag debug console timestamp en
+diag debug app dhcprelay 7
+
+-----
+- Debug DHCP IPSec DHCP Server
+
+diag debug en
+diag debug console timestamp en
+diag debug app dhcps 7
+
+-----
+- Sniffer de DHCP
+diag sniff packet any 'udp port 67 or udp port 68' 6
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+diagnose sniffer packet LAN_Vlan17 'src host 10.144.17.22 and dst host 189.84.129.12' 1
+
+
+diag sniffer packet LAN_Vlan17 'host 10.144.17.22 and icmp' 1
+http://kb.fortinet.com/kb/viewContent.do?externalId=11186
+
+
+https://itzecurity.blogspot.com/2013/07/some-useful-debug-commands.html
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+
+diagnose debug disable 
+diagnose debug flow trace stop 
+diagnose debug flow filter clear 
+diagnose debug reset 
+
+diagnose debug flow filter daddr 10.144.30.54
+diagnose debug flow show console enable
+diagnose debug flow show function-name enable
+diagnose debug console timestamp enable
+diagnose debug flow trace start 999
+diagnose debug enable
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Verificar SSL Inspection
+
+# diagnose debug application fnbamd -1
+# diagnose debug enable
+
+http://kb.fortinet.com/kb/viewContent.do?externalId=FD32679
