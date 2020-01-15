@@ -1,0 +1,46 @@
+Atualizando Fortigate via USB:
+
+
+- Formatar um pendrive com 2Gb em FAT32
+- Copiar o Firmware com o nome "image.out" para dentro da raiz do pendrive
+- Copiar o arquivo de configuração com o nome "fgt_system.conf" para dentro da raiz do pendrive
+
+
+- Espetar o Pendrive no Fortinet.
+- Conectar via Console/SSH e executar o comando abaixo para verificar se o Pendrive foi reconhecido:
+
+execute usb-disk list
+
+FW01 # execute usb-disk list
+2018-02-07 10:00:30     <DIR>           System Volume Information
+2018-02-02 16:38:38         873928      fgt_system.conf
+2016-08-15 16:11:54       35461495      image.out
+
+
+- Configurar o modo auto-install do Fortinet:
+config system auto-install
+    set auto-install-config enable
+    set auto-install-image enable
+    set default-config-file "fgt_system.conf"
+    set default-image-file "image.out"
+end
+
+
+Para validar: 
+
+show full-configuration system auto-install
+
+
+- Reiniciar o Fortigate:
+execute reboot
+
+
+Fonte: http://packetsandpings.blogspot.com.br/2013/05/upgrading-fortinet-via-usb.html
+http://kb.fortinet.com/kb/viewContent.do?externalId=FD31911
+
+----
+
+- Formatar um FortiGate via TFTP:
+http://www.blogsecurity.com.br/formatando-o-fortigate-e-restaurando-firmware/
+
+
